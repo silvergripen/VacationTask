@@ -8,9 +8,7 @@ namespace VacationTaskUppgift.Models
     public partial class PersonelModel : IdentityUser
     {
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int personelId { get; set; } = 0;
+
         [MaxLength(50)]
         [Required]
         [DisplayName("Hela namnet")]
@@ -21,10 +19,10 @@ namespace VacationTaskUppgift.Models
         [Required]
         [MaxLength(50)]
         public string Password { get; set; } = null!;
+        public bool IsAdmin { get; set; }
 
-        [ForeignKey("TimeVacation")]
-        public int Fk_TimeVacationId { get; set; }
-        public virtual TimeVacationModel TimeVacation { get; set; }
-        public string IsAdmin { get; set; }
+        [ForeignKey("RequestVacation")]
+        public int FK_RequestVacationId { get; set; }
+        public virtual ICollection<RequestVacationModel>? RequestVacations { get; set; }
     }
 }

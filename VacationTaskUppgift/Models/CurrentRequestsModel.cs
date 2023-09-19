@@ -5,15 +5,16 @@ namespace VacationTaskUppgift.Models
 {
     public class CurrentRequestsModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CurrentVacId { get; set; } = 0;
-        public bool IsAccepted { get; set; }
-        public bool IsRejected { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int CurrentVacId { get; set; }
+        public bool IsAccepted { get; set; } = false;
+        public bool IsRejected { get; set; } = true;
 
-        [ForeignKey("VacationType")]
-        public int FK_VacTypeId { get; set; }
-        public virtual VacationTypeModel VacationType { get; set; }
+        [ForeignKey("RequestVacation")]
+
+        public int FK_RequestVacationId { get; set; }
+
+        public virtual ICollection<RequestVacationModel> RequestVacations { get; set;}
 
     }
 }

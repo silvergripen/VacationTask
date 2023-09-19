@@ -20,7 +20,7 @@ namespace VacationTaskUppgift.Controllers
         {
             var vacationList = await context.RequestVacations
                  .Include(e => e.VacationType)
-                 .Include(l => l.Personel)
+                 .Include(l => l.Personels)
                  .AsNoTracking().ToListAsync();
             return View(vacationList);
         }
@@ -33,15 +33,19 @@ namespace VacationTaskUppgift.Controllers
             var lquerys = from l in context.Personels
                           select l.FullName;
             //Should be currently logged in person
-            ViewBag.EDropDown = new SelectList(context.Personels, "PersonelId", "FName");           
+            ViewBag.EDropDown = new SelectList(context.Personels, "PersonelId", "FullName");
+            
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(VacationApplicationController viewModel)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("RequestVacId, DateStart, DateEnd FK_VacationTypeId, FK_Personel")] VacationApplicationController viewModel)
         {
-            if (viewModel == null)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
+                context.Add(viewModel);
+                await context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
             return RedirectToAction("Index"); //This might be wrong.
         }

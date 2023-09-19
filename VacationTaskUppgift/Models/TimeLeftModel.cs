@@ -3,20 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace VacationTaskUppgift.Models
 {
-    public class VacationStatusModel
+    public class TimeLeftModel
     {
-
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int VacationStatusId { get; set; }
-        public bool isActive { get; set; }
-
-        public DateTime CurrentDate { get; set; }
-
-        [Required]
-        [ForeignKey("CurrentRequest")]
-        public int FK_CurrentRequestId {  get; set; }
-
-        public virtual CurrentRequestsModel? CurrentRequest { get; set; }
+        public int TimeLeftId { get; set; }
+        public int TimeLeft { get; set; }
 
         [Required]
         [ForeignKey("Personel")]
@@ -24,5 +15,8 @@ namespace VacationTaskUppgift.Models
 
         public virtual PersonelModel? Personel { get; set; }
 
+        [ForeignKey("VacationType")]
+        public int FK_VacationType { get; set; }
+        public virtual VacationTypeModel VacationType { get; set; }
     }
 }

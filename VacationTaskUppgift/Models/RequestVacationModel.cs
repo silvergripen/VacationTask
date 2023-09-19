@@ -4,9 +4,8 @@ namespace VacationTaskUppgift.Models
 {
     public class RequestVacationModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RequestVacId { get; set; } = 0;
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int RequestVacId { get; set; }
 
         public DateTime DateStart { get; set; }
 
@@ -14,11 +13,12 @@ namespace VacationTaskUppgift.Models
         [ForeignKey("VacationType")]
         public int FK_VacationType { get; set; }
         public virtual VacationTypeModel VacationType { get; set; }
-
+        
+        [Required]
         [ForeignKey("Personel")]
-        public int FK_Personel {  get; set; }
+        public string FK_Personel {  get; set; } = string.Empty;
 
-        public virtual PersonelModel Personel { get; set;}
+        public virtual PersonelModel? Personels { get; set;}
 
 
 
